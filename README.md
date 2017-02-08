@@ -1,6 +1,6 @@
-# Node.js Alexa Skills Kit Samples
+# Node.js Alexa Skills 
 
-## Alexa Skills Kit Documentation
+## Alexa Skills Documentation
 The documentation for the Alexa Skills Kit is available on the [Amazon Apps and Services Developer Portal](https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit/).
 
 ## Contents
@@ -8,6 +8,7 @@ The included samples represent how to use nodejs AWS Lambda functions as Alexa S
 The following samples are included (ordered by complexity, see the Using Alexa Skills Kit Samples
 link below for more details):
 
+- [TWSS](TWSSProject/src) : an advanced trivia skill
 - [HelloWorld](samples/helloWorld) : a simple skill that responds with "hello world!"
 - [SpaceGeek](samples/spaceGeek) : a simple skill that responds to the user with a space fact.
 - [ReindeerGames](samples/reindeerGames): a simple skill that plays trivia quiz questions
