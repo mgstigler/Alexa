@@ -1,12 +1,10 @@
 # Node.js Alexa Skills 
 
 ## Alexa Skills Documentation
-The documentation for the Alexa Skills Kit is available on the [Amazon Apps and Services Developer Portal](https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit/).
+This provides examples of Alexa skills as well as documentation for how to use each skill.
 
 ## Contents
-The included samples represent how to use nodejs AWS Lambda functions as Alexa Skills.
-The following samples are included (ordered by complexity, see the Using Alexa Skills Kit Samples
-link below for more details):
+The included Projects are both Alexa skill kit projects and personal projects that have elaborated on alexa skills.
 
 - [TWSS](TWSSProject/src) : an advanced trivia skill
 - [HelloWorld](samples/helloWorld) : a simple skill that responds with "hello world!"
