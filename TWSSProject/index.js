@@ -1,10 +1,7 @@
 /**
  Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
  Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-
  http://aws.amazon.com/apache2.0/
-
  or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
@@ -14,7 +11,53 @@
  */
 
 'use strict';
-
+var games = [
+ {
+        "Hot Potato.  In this game, a timer will be set for one minute, whoever is caught when the timer goes off, loses and has to chug for five seconds": "1"
+    },
+    {
+        "Women's Appreciation.  Girls Drink" : "2"
+    },
+    {
+        "Impish or Admirable.  One player decides what is impish (You're impish if you've...) Drink if you're impish, assign a drink if you're admirable.":"3"
+    },
+    {
+        "Dream Team.  Choose a mate to drink with you until told otherwise":"4"
+    },
+    {
+        "Desert Island.  In this game, one player decides a desert island category, the other players must go around and list items in that cateogry. First player to be stumped drinks for five seconds":"5"
+    },
+    {
+        "Email Surveillance.  In this game, one player is assigned the role of assassin, if they wink at you, you have been assassinated and must drink your drink, you then become the assassin until Alexa tells you otherwise":"6"
+    },
+    {
+        "Casual Friday. One player picks an article of clothing that another player has to take off for an undetermined amount of time":"7"
+    },
+    {
+        "Dinner Party. In this game, one person is named as the host.  The host makes up a rule that players must follow for the remainder of the dinner party":"8"
+    },
+    {
+        "Threat Level Midnight.  Take a sip everytime you hear the word Scarn":"9"
+    },
+    {
+        "Free Family Portrait Studio.  Alexa lists people to take a selfie together and send via snapchat":"10"
+    },
+    {
+        "Koi Pond. Waterfall":"11"
+    },
+    {
+        "Trivia.  Trivia competition, losing team drinks. Please say start trivia to begin":"12"
+    },
+    {
+        "The Warehouse.  Men Drink":"13"
+    },
+    {
+        "Gossip.  Most likely to.  Drink for number of fingers pointed your way":"14"
+    },
+    {
+        "Booze Cruise.  A person is named Captain.  They can assign life vests to all but one passenger on the ship.  All assigned life jackets, take a sip, the one without takes a shot. Sip sip shot":"15"
+    },
+];
 /**
  * When editing your questions pay attention to your punctuation. Make sure you use question marks or periods.
  * Make sure the first answer is the correct one. Set at least 4 answers, any extras will be shuffled in.
@@ -264,6 +307,35 @@ var questions = [
     }
 ];
 
+var gossip = [
+    "Most likely to set a fire while cooking a cheese pita",
+    "Most likely to get beat up by a 13-year-old girl",
+    "Most likely to set one's hair on fire in a drunken state of being",
+    "Most likely to have a nanny cam set up to monitor their household of cats while at work",
+    "Most likely to sleep with a friend's mom",
+    "Most likely to get naked at a boss's pool party",
+    "Most likely to skip out on a double date valentine's lunch to have sex in the bathroom",
+    "Most likely to hire a hitman to knock out kneecaps with a lead pipe",
+    "Most likely to own the nickname boner champ",
+    "Most likely to win a dance party"
+    ];
+
+var hotpotato = [
+    "Players must go around and list the Office Christmas episodes",
+    "Players must go around and list made up diseases created by Jim and Pam during Season 1 Episode 3 Health Care",
+    "Players must go around and list the games that make up the Office Olympics",
+    "Players must go around and list different Halloween costumes that have been worn in the Office",
+    "Players must go around and list the cliches Phyllis says when it rains outside"
+    ];
+
+var players = [
+    "Maddie", "Morgan", "Ram", "Molly"
+];
+
+var DreamTeamEnds = "Dream Team has ended";
+
+var CasualFridayEnds = "Casual Friday is over.  Please cover yourself";
+
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
 // etc.) The JSON body of the request is provided in the event parameter.
 exports.handler = function (event, context) {
@@ -365,6 +437,14 @@ function onIntent(intentRequest, session, callback) {
         handleFinishSessionRequest(intent, session, callback);
     } else if ("AMAZON.CancelIntent" === intentName) {
         handleFinishSessionRequest(intent, session, callback);
+    } else if("AMAZON.NextIntent" === intentName) {
+        handleNextRequest(intent, session, callback);
+    } else if("StartTriviaIntent" === intentName) {
+        handleNextRequest(intent, session, callback);
+    } else if("EndTriviaIntent" === intentName) {
+        handleNextRequest(intent, session, callback);
+    } else if("GoIntent" === intentName) {
+        handleNextRequest(intent, session, callback);
     } else {
         throw "Invalid intent";
     }
@@ -384,38 +464,61 @@ function onSessionEnded(sessionEndedRequest, session) {
 // ------- Skill specific business logic -------
 
 var ANSWER_COUNT = 4;
-var GAME_LENGTH = 5;
-var CARD_TITLE = "Trivia"; // Be sure to change this for your skill.
+var GAME_LENGTH = 15;
+var CARD_TITLE = "That's What She Said"; // Be sure to change this for your skill.
+var PLAYER_LIST = 2;
+
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
-        speechOutput = "I will ask you " + GAME_LENGTH.toString()
-            + " questions, try to get as many right as you can. Just say the number of the answer. Let's begin. ",
+        speechOutput = "Welcome to That's What She Said. Let's begin" + " ",
         shouldEndSession = false,
-
-        gameQuestions = populateGameQuestions(),
-        correctAnswerIndex = Math.floor(Math.random() * (ANSWER_COUNT)), // Generate a random index for the correct answer, from 0 to 3
-        roundAnswers = populateRoundAnswers(gameQuestions, 0, correctAnswerIndex),
-
-        currentQuestionIndex = 0,
-        spokenQuestion = Object.keys(questions[gameQuestions[currentQuestionIndex]])[0],
-        repromptText = "Question 1. " + spokenQuestion + " ",
-
-        i, j;
-
-    for (i = 0; i < ANSWER_COUNT; i++) {
-        repromptText += (i+1).toString() + ". " + roundAnswers[i] + ". "
-    }
+        spokenQuestion = "",
+        repromptText = "",
+        player = populatePlayer(),
+        player2 = populatePlayer(),
+        
+        gameQuestions = populateGameList(),
+        currentQuestionIndex = 0;
+        while (player == player2) {
+            player2 = populatePlayer();
+        }
+        
+         if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 1){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " will start." + populateHotPotato();
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 3){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " will be Belsnickel for this game.";
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 4){
+             spokenQuestion = player + " " + Object.keys(games[gameQuestions[currentQuestionIndex]])[0];
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 5){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " starts.";
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 6){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " starts.";
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 7){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " gets to choose what article of clothing " + player2 + " will remove";
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 8){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " is the host.";
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 10){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " and " + player2 + " are chosen.";
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 11){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " starts.";
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 12){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0];
+             handleStartTriviaRequest();
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 14){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + " " + populateGossip();
+         }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 15){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " is the captain";
+         }else {
+            spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0];
+         }
+        repromptText = "Game 1: " + spokenQuestion;
     speechOutput += repromptText;
     sessionAttributes = {
         "speechOutput": repromptText,
         "repromptText": repromptText,
         "currentQuestionIndex": currentQuestionIndex,
-        "correctAnswerIndex": correctAnswerIndex + 1,
-        "questions": gameQuestions,
-        "score": 0,
-        "correctAnswerText":
-            questions[gameQuestions[currentQuestionIndex]][Object.keys(questions[gameQuestions[currentQuestionIndex]])[0]][0]
+        "questions": gameQuestions
     };
     callback(sessionAttributes,
         buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
@@ -446,6 +549,58 @@ function populateGameQuestions() {
     }
 
     return gameQuestions;
+}
+
+function populateGameList() {
+    var gameList = [];
+    var indexList = [];
+    var index = games.length;
+
+    if (GAME_LENGTH > index){
+        throw "Invalid Game Length.";
+    }
+
+    for (var i = 0; i < games.length; i++){
+        indexList.push(i);
+    }
+
+    // Pick GAME_LENGTH random questions from the list to ask the user, make sure there are no repeats.
+    for (var j = 0; j < GAME_LENGTH; j++){
+        var rand = Math.floor(Math.random() * index);
+        index -= 1;
+
+        var temp = indexList[index];
+        indexList[index] = indexList[rand];
+        indexList[rand] = temp;
+        gameList.push(indexList[index]);
+    }
+
+    return gameList;
+}
+
+//Function to populate a chosen player
+function populatePlayer() {
+
+    var index = players.length;
+
+    var playerNumber = Math.floor(Math.random()*index);
+    var player = players[playerNumber];
+
+    return player;
+}
+
+function populateGossip() {
+    var index = gossip.length;
+    var gossipNumber = Math.floor(Math.random()*index);
+    var g = gossip[gossipNumber];
+    return g;
+}
+
+function populateHotPotato() {
+    var index = hotpotato.length;
+    var potato = Math.floor(Math.random()*index);
+    var hot = hotpotato[potato];
+    return hot;
 }
 
 function populateRoundAnswers(gameQuestionIndexes, correctAnswerIndex, correctAnswerTargetLocation) {
@@ -480,6 +635,37 @@ function populateRoundAnswers(gameQuestionIndexes, correctAnswerIndex, correctAn
     answers[0] = answers[correctAnswerTargetLocation];
     answers[correctAnswerTargetLocation] = temp;
     return answers;
+}
+
+function handleStartTriviaRequest(intent,session,callback){
+    var sessionAttributes = {},
+        speechOutput = "",
+        shouldEndSession = false,
+        spokenQuestion = "",
+        repromptText = "";
+        var index = hotpotato.length;
+        var potato = Math.floor(Math.random()*index);
+        var hot = hotpotato[potato];
+        speechOutput += hot;
+        repromptText = "Question: " + spokenQuestion;
+        speechOutput += repromptText;
+        sessionAttributes = {
+            "speechOutput": repromptText,
+            "repromptText": repromptText,
+        };
+    callback(sessionAttributes,
+        buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
+}
+
+function handleEndTriviaRequest(intent, session, callback){
+    
+}
+
+function handleGoRequest(intent, session, callback) {
+    var index = hotpotato.length;
+    var potato = Math.floor(Math.random()*index);
+    var hot = hotpotato[potato];
+    return hot;
 }
 
 function handleAnswerRequest(intent, session, callback) {
@@ -558,6 +744,91 @@ function handleAnswerRequest(intent, session, callback) {
         }
     }
 }
+
+function handleNextRequest(intent, session, callback) {
+    var speechOutput = "";
+    var sessionAttributes = {};
+    var gameInProgress = session.attributes && session.attributes.questions;
+    var answerSlotValid = isAnswerSlotValid(intent);
+    var userGaveUp = intent.name === "DontKnowIntent";
+    var player = populatePlayer();
+    var player2 = populatePlayer();
+    var spokenQuestion = " ";
+
+    while (player == player2) {
+        player2 = populatePlayer();
+    }
+
+    
+    if (!gameInProgress) {
+        // If the user responded with an answer but there is no game in progress, ask the user
+        // if they want to start a new game. Set a flag to track that we've prompted the user.
+        sessionAttributes.userPromptedToContinue = true;
+        speechOutput = "There is no game in progress. Do you want to start a new game? ";
+        callback(sessionAttributes,
+            buildSpeechletResponse(CARD_TITLE, speechOutput, speechOutput, false));
+    } else {
+        var gameQuestions = session.attributes.questions,
+            correctAnswerIndex = parseInt(session.attributes.correctAnswerIndex),
+            currentScore = parseInt(session.attributes.score),
+            currentQuestionIndex = parseInt(session.attributes.currentQuestionIndex),
+            correctAnswerText = session.attributes.correctAnswerText;
+
+        var speechOutputAnalysis = "";
+
+        // if currentQuestionIndex is 4, we've reached 5 questions (zero-indexed) and can exit the game session
+        if (currentQuestionIndex == GAME_LENGTH - 1) {
+            speechOutput = "Thank you for playing!";
+            callback(session.attributes,
+                buildSpeechletResponse(CARD_TITLE, speechOutput, "", true));
+        } else {
+            currentQuestionIndex += 1;
+            if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 1){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " will start." + populateHotPotato();
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 3){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " will be Belsnickel for this game.";
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 4){
+                spokenQuestion = player + " " + Object.keys(games[gameQuestions[currentQuestionIndex]])[0];
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 5){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " starts.";
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 6){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " starts.";
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 7){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " gets to choose what article of clothing " + player2 + " will remove";
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 8){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " is the host.";
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 10){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " " + player2 + " are chosen.";
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 11){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " starts.";
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 14){
+             spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + " " + populateGossip();
+            }else if(games[gameQuestions[currentQuestionIndex]][Object.keys(games[gameQuestions[currentQuestionIndex]])[0]] == 15){
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0] + player + " is the captain";
+            }else {
+                spokenQuestion = Object.keys(games[gameQuestions[currentQuestionIndex]])[0];
+            }
+            // Generate a random index for the correct answer, from 0 to 3
+            var questionIndexForSpeech = currentQuestionIndex + 1,
+                repromptText = "Game " + questionIndexForSpeech.toString() + ". " + spokenQuestion + " ";
+            speechOutput += repromptText;
+
+            sessionAttributes = {
+                "speechOutput": repromptText,
+                "repromptText": repromptText,
+                "currentQuestionIndex": currentQuestionIndex,
+                "correctAnswerIndex": correctAnswerIndex + 1,
+                "questions": gameQuestions,
+                "score": currentScore,
+                "correctAnswerText":
+                    questions[gameQuestions[currentQuestionIndex]][Object.keys(questions[gameQuestions[currentQuestionIndex]])[0]][0]
+            };
+            callback(sessionAttributes,
+                buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, false));
+        }
+    }
+}
+
 
 function handleRepeatRequest(intent, session, callback) {
     // Repeat the previous speechOutput and repromptText from the session attributes if available
@@ -654,4 +925,3 @@ function buildResponse(sessionAttributes, speechletResponse) {
         response: speechletResponse
     };
 }
-
