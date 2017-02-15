@@ -1,0 +1,21 @@
+{
+  "name": "twssproject",
+  "version": "1.0.0",
+  "description": "office trivia drinking game for alexa",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgstigler/Alexa.git"
+  },
+  "author": "mstigler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mgstigler/Alexa/issues"
+  },
+  "homepage": "https://github.com/mgstigler/Alexa#readme"
+}
