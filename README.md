@@ -6,7 +6,7 @@ This provides examples of Alexa skills as well as documentation for how to use e
 ## Contents
 The included Projects are both Alexa skill kit projects and personal projects that have elaborated on alexa skills.
 
-- [TWSS](TWSSProject/src) : an advanced trivia skill
+- [TWSS](TWSSProject/) : an advanced trivia skill
 
 
 ## Usage
