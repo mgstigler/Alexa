@@ -323,7 +323,6 @@ function handleNextRequest(intent, session, callback) {
     var speechOutput = "";
     var sessionAttributes = {};
     var gameInProgress = session.attributes && session.attributes.questions;
-    // var answerSlotValid = isAnswerSlotValid(intent);
     var userGaveUp = intent.name === "DontKnowIntent";
     var player = populatePlayer();
     var player2 = populatePlayer();
@@ -343,14 +342,10 @@ function handleNextRequest(intent, session, callback) {
             buildSpeechletResponse(CARD_TITLE, speechOutput, speechOutput, false));
     } else {
         var gameQuestions = session.attributes.questions,
-            // correctAnswerIndex = parseInt(session.attributes.correctAnswerIndex),
-            // currentScore = parseInt(session.attributes.score),
             currentQuestionIndex = parseInt(session.attributes.currentQuestionIndex);
-            // correctAnswerText = session.attributes.correctAnswerText;
 
         var speechOutputAnalysis = "";
 
-        // if currentQuestionIndex is 4, we've reached 5 questions (zero-indexed) and can exit the game session
         if (currentQuestionIndex == GAME_LENGTH - 1) {
             speechOutput = "Thank you for playing!";
             callback(session.attributes,
@@ -395,11 +390,7 @@ function handleNextRequest(intent, session, callback) {
                 "speechOutput": repromptText,
                 "repromptText": repromptText,
                 "currentQuestionIndex": currentQuestionIndex,
-                // "correctAnswerIndex": correctAnswerIndex + 1,
                 "questions": gameQuestions
-                // "score": currentScore,
-                // "correctAnswerText":
-                //     questions[gameQuestions[currentQuestionIndex]][Object.keys(questions[gameQuestions[currentQuestionIndex]])[0]][0]
             };
             callback(sessionAttributes,
                 buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, false));
