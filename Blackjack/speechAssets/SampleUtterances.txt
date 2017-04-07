@@ -1,0 +1,20 @@
+HitIntent hit
+
+FoldIntent fold
+
+AMAZON.StartOverIntent start game
+AMAZON.StartOverIntent new game
+AMAZON.StartOverIntent start
+AMAZON.StartOverIntent start new game
+
+AMAZON.RepeatIntent repeat
+
+AMAZON.HelpIntent help
+
+AMAZON.YesIntent yes
+
+AMAZON.NoIntent no
+
+AMAZON.StopIntent stop
+
+AMAZON.CancelIntent cancel
