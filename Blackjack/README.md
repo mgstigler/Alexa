@@ -1,77 +1,39 @@
-# BlackJack Getting Started
+# Blackjack Getting Started
 
-## Games
-- HOT POTATO - In this game, a timer will be set for one minute, whoever is caught when the timer goes off, loses and has to chug for five seconds 
+## About Blackjack
 
-	1. Players must go around and list the Office Christmas episodes
-		(Answers: Christmas Party, Benihana Christmas, Moroccan Christmas, Secret Santa, Classy Christmas, Christmas Wishes, Dwight Christmas)
-
-	2. Players must go around and list made up diseases created by Jim and Pam during Season 1 Episode 3 "Health Care"
-		(Answers: Mad Cow Disease, Ebola, Spontaneous Dental Hydroplosion, Leprosy, Flesh-Eating Bacteria, Hot Dog Fingers, Anal Fissures, Government Created Nanorobot Infection, Count Choculitis, Inverted Penis)
-
-	3. Players must go around and list the games that make up the Office Olympics
-		(Answers: Flonkerton, Hate Ball, Who can put the most m&ms in their mouth, Dunderball, Pam Pong)
-
-	4. Players must go around and list different Halloween costumes that have been worn in the Office
-		(Answers: 2 headed Michael, Sith Lord, Cat, Black Cat, Vampire, 3 hole punch Jim, Woman, Mr. Incredible, Dorothy, zombie, Hobo Clown, Charlie Chaplin, "Dave", Kitten from Cats, Uncle Sam, Ragedy Ann, Carrie Bradshaw from Sex in the City, Gordan Gecko, Creature from the Black Lagoon, Joker, Dick in A Box, Suicide Victim, Jigsaw, Facebook, Leeloo, Fiona, Black Widow spider, "Original" Vampire, "Trendy" Vampire, Sarah Palin, police officer, witch, torture vicitm, Rosemary, "Gangster" Pumpkin, Scarecrow, Mcgruber, Scranton Strangler, Popeye, Olive Oil, Bill Compton, Sookie Stackhouse, Mummy, Michael Moore, Samurai Warrior, Lady Gaga, Snooki, Katy Perry, Justin Bieber, 1970's disco guy, the "Rational Consumer", penguin, sexy nurse, monster mask, hobo, vampire, pregnant nun, nun, Supreme Court Justice, Construction Worker, Chris Bosh, Dwyane Wade, LeBron James, kangaroo, Osama Bin Laden, Kerrigan from Starcraft (later a jamacain zombie woman), Kate Middleton, Skeleton, Jesse Pinkman, Oscar Liar Weiner, Wendy, Kitten, Chef, George Michael, Doctor Cinderella, Pig, cheerleader, "Sexy" Toby, Usain Bolt, Black Widow, Charlie Brown, Nancy Reagan, Dinosaur, No Costume, A Puppy)
-
-	5. Players must go around and list the cliches Phyllis says when it rains outside
-		(Answers: Oh, nobody knows how to drive in the rain, You know the roads are actually the slickest in the first half hour?, Oh, the plants are gonna love this, I actually sleep better when it's raining, This weather makes me want to stay at home, curled up with a good book)
+Blackjack is a popular American casino game, now found throughout the world. It is a banking game in which the aim of the player is to achieve a hand whose points total nearer to 21 than the banker's hand, but without exceeding 21.
 
 
-- WOMEN'S APPRECIATION - Girls drink
+## Game Objective
+
+The Alexa skill is played according to the Blackjack rules posted at : https://www.pagat.com/banking/blackjack.html
+
+- The Deal and "Blackjack"
+	At the start of the blackjack game, the player and the dealer receive two cards each. The players' cards are dealt face up, while the dealer has one face down and one face up.
+
+	The best possible blackjack hand is an opening deal of an ace with any ten-point card. This is called a "blackjack", or a natural 21, and the player holding this automatically wins unless the dealer also has a blackjack. If a player and the dealer each have a blackjack, the result is a push for that player. If the dealer has a blackjack, all players not holding a blackjack lose.
+
+- The Players' turns
+
+	The player can keep his hand as it is and fold or take more cards from the deck (hit), one at a time, until either the player judges that the hand is strong enough to go up against the dealer's hand and stands, or until it goes over 21, in which case the player immediately loses (busts).
 
 
-- IMPISH OR ADMIRABLE - One player decides what is impish (You're impish if you've...) Drink if you're impish, assign a drink if you're admirable
+- The Dealer's turn
+
+	When the players have finished their actions, either decided to fold or busted, the dealer turns over his hidden hole card.
+
+	If the dealer has a natural 21 (blackjack) with his two cards, he won't take any more cards. All players lose, except players who also have a blackjack, in which case it is a push - the bet is returned to the player.
+
+	If the dealer doesn't have a natural, he hits (takes more cards) or stands depending on the value of the hand. Contrary to the player, though, the dealer's action is completely dictated by the rules. The dealer must hit if the value of the hand is lower than 17, otherwise the dealer will stand.
 
 
-- DREAM TEAM - Choose a mate to drink with you until told otherwise//
-
-
-- DESERT ISLAND - In this game, one player decides a desert island category, the other players must go around and list items in that cateogry. First player to be stumped drinks for five seconds
-
-
-
-- EMAIL SURVEILLANCE - In this game, one player is assigned the role of assassin, if they wink at you, you have been assassinated and must drink your drink, you then become the assassin until Alexa tells you otherwise
-
-
-- CASUAL FRIDAY - One player picks an article of clothing that another player has to take off for an undetermined amount of time
-
-
-- DINNER PARTY - In this game, one person is named as the host.  The host makes up a rule that players must follow for the remainder of the dinner party
-
-
-- THREAT LEVEL MIDNIGHT - Never have I ever
-
-
-- FREE FAMILY PORTRAIT STUDIO - Alexa lists people to take a selfie together and send via snapchat
-
-
-- KOI POND - Waterfall
-
-
-- TRIVIA - Trivia competition, losing team drinks
-
+## Alexa Specific Rules
 	
-- THE WAREHOUSE - Men Drink
+	The value of an Ace card will be determined by alexa for both the player and the dealer.  Its value will be whatever is most ideal for the success of both the dealer and the player.
 
+	To initiate the game: 'Start', 'Blackjack'
 
-- GOSSIP - Most likely to.  Drink for number of fingers pointed your way
-	1. Most likely to set a fire while cooking a cheese pita.
-	2. Most likely to get beat up by a 13-year-old girl.
-	3. Most likely to set one's hair on fire in a drunken state of being.
-	4. Most likely to have a nanny cam set up to monitor their household of cats while at work.
-	5. Most likely to sleep with a friend's mom.
-	6. Most likely to get naked at a boss's pool party.
-	7. Most likely to skip out on a double date valentine's lunch to have sex in the bathroom.
-	8. Most likely to hire a hitman to knock out kneecaps with a lead pipe.
-	9. Most likely to own the nickname 'boner champ'.
-	10. Most likely to win a dance party
+	To hit and get your next card: 'Hit'
 
-
-
-- BOOZE CRUISE - A person is named Captain.  They can assign life vests to all but one passenger on the ship.  All assigned life jackets, take a sip, the one without takes a shot. Sip sip shot
-
-
-
-
+	To fold and end the game: 'Fold'

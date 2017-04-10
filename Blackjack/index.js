@@ -1,11 +1,8 @@
 /*
 //Maddie Stigler
-//Apr 7, 2017
+//Feb 15, 2017
 //Developed for Alexa Skills
 */
-
-//list any dependencies here
-
 
 //Game Specific Variables
 var cards = [
@@ -282,15 +279,47 @@ function getWelcomeResponse(callback) {
         shouldEndSession = false,
         repromptText = "",
         currentCardIndex = 4,
+        conditionalString = " Hit or Fold?",
         gameDeck = shuffleDeck(),
         dcard1 = Object.keys(gameDeck[0])[0],
-        dcard2 = Object.keys(gameDeck[1])[0],
+        hiddenCard = Object.keys(gameDeck[1])[0],
         pcard1 = Object.keys(gameDeck[2])[0],
         pcard2 = Object.keys(gameDeck[3])[0],
-        dealerTotal = Number(gameDeck[0][Object.keys(gameDeck[0])[0]]) + Number(gameDeck[1][Object.keys(gameDeck[1])[0]]),
-        playerTotal = Number(gameDeck[2][Object.keys(gameDeck[2])[0]]) + Number(gameDeck[3][Object.keys(gameDeck[3])[0]]);
+        dealerTotal = Number(gameDeck[0][dcard1]) + Number(gameDeck[1][hiddenCard]),
+        playerTotal = Number(gameDeck[2][pcard1]) + Number(gameDeck[3][pcard2]),
+        dealAgain = deal(dealerTotal);
+
+        if (dcard1 === "Ace" && hiddenCard != "Ace"){
+            dealerTotal = ace(Number(gameDeck[1][hiddenCard])) + Number(gameDeck[1][hiddenCard]);
+        }
+        else if (hiddenCard === "Ace" && dcard1 != "Ace"){
+            dealerTotal = ace(Number(gameDeck[0][dcard1])) + Number(gameDeck[0][dcard1]);
+        }
+
+        if (pcard1 === "Ace" && pcard2 != "Ace"){
+            playerTotal = ace(Number(gameDeck[3][pcard2])) + Number(gameDeck[3][pcard2]);
+        }
+        else if (pcard2 === "Ace" && pcard1 != "Ace"){
+            playerTotal = ace(Number(gameDeck[2][pcard1])) + Number(gameDeck[2][pcard1]) ;
+        }
+
+        if(playerTotal === 21) {
+            var hit = 0;
+            var responseString = ". I lost.  You win! Thanks for playing.  Goodbye.";
+            while(dealAgain !== false){
+                currentCardIndex+=1;
+                var dealercard = Object.keys(gameDeck[currentCardIndex])[0];
+                dealerTotal += Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]); 
+                dealAgain = deal(dealerTotal);
+                hit +=1;
+            }
+            if (dealerTotal === 21) {
+                responseString = ". It's a tie. Thanks for playing, goodbye!"
+            }
+            conditionalString = "You got a blackjack! My hidden card is a " + hiddenCard + " I hit " + hit + " more times.  My total is " + dealerTotal + responseString;
+        }
         
-        repromptText += "I drew a " + dcard1 + " and a " + dcard2 + " My total number of points is:  " + dealerTotal + " You were dealt a: " + pcard1 + " and a: " + pcard2 + " Your total number of points is: " + playerTotal + " Hit or fold?";
+        repromptText += "I will show you one card and hide the other.  I drew a " + dcard1 + " You were dealt a: " + pcard1 + " and a: " + pcard2 + " Your total number of points is: " + playerTotal + conditionalString;
         
         speechOutput += repromptText;
     sessionAttributes = {
@@ -299,7 +328,8 @@ function getWelcomeResponse(callback) {
         "currentCardIndex": currentCardIndex,
         "gameDeck": gameDeck,
         "dealerTotal": dealerTotal,
-        "playerTotal": playerTotal
+        "playerTotal": playerTotal,
+        "hiddenCard" : hiddenCard
     };
     callback(sessionAttributes,
         buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
@@ -326,64 +356,21 @@ function shuffleDeck() {
   return cards;
 }
 
-
-function handleHitRequest(intent, session, callback) {
-     var sessionAttributes = {},
-        speechOutput = "Welcome to Blackjack.  I will be the dealer for this game.  First, I will deal us two cards each, then you will be given the option to hit or fold ",
-        shouldEndSession = false,
-        repromptText = "",
-        dealerResponse = "",
-        extraResponse = "",
-        currentCardIndex = session.attributes.currentCardIndex + 1,
-        gameDeck = session.attributes.gameDeck,
-        card = Object.keys(gameDeck[currentCardIndex])[0],
-        dealerTotal = session.attributes.dealerTotal,
-        playerTotal = session.attributes.playerTotal + Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]);
-        
-        if(bust(playerTotal) === true){
-            extraResponse = " You bust! I win.";
-        }
-        else if (blackjack(playerTotal) === true){
-            extraResponse = " Blackjack! You win.  Good game";
-        }
-        repromptText += " You were dealt a " + card + " Your total number of points is" + playerTotal + extraResponse;
-
-        var dealerChoice = "";
-        var dealCards = deal(dealerTotal);
-        if(dealCards === true && DEALER_FOLD !== true) {
-            currentCardIndex+=1;
-            var dealercard = Object.keys(gameDeck[currentCardIndex])[0];
-            dealerTotal += Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]);
-            dealerResponse = "I was dealt a " + dealercard + " My total number of points is : " + dealerTotal + " Hit or fold?";
-        }
-        else if (dealCards === false) {
-            dealerResponse = "I folded " + " My total number of points is : " + dealerTotal + " Hit or fold?";
-            DEALER_FOLD = true;
-        }
-        
-        speechOutput += repromptText + dealerResponse;
-    sessionAttributes = {
-        "speechOutput": repromptText,
-        "repromptText": repromptText,
-        "currentCardIndex": currentCardIndex,
-        "gameDeck" : gameDeck,
-        "dealerTotal": dealerTotal,
-        "playerTotal" : playerTotal
-    };
-    callback(sessionAttributes,
-        buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
+function ace(total) {
+    var aceCount = 1;
+    if(total + 11 < 21 || total + 11 === 21) {
+        aceCount = 11;
+    }
+    return aceCount;
 }
 
 function deal(total) {
     var deal = true;
-    if(total < 10 ){
+    if(total < 17 ){
         deal = true;
     }
-    if (total >= 18) {
-        deal = false;
-    }
     else {
-        deal = Math.random() >= 0.5;
+        deal = false;
     }
     
     return deal;
@@ -405,19 +392,112 @@ function blackjack(total) {
     return win;
 }
 
-function handleFoldRequest(intent, session, callback) {
+function handleHitRequest(intent, session, callback) {
      var sessionAttributes = {},
-        speechOutput = "Welcome to Blackjack.  I will be the dealer for this game.  First, I will deal us two cards each, then you will be given the option to hit or fold ",
+        speechOutput = "",
         shouldEndSession = false,
         repromptText = "",
-        
+        extraResponse = " Hit or Fold?",
         currentCardIndex = session.attributes.currentCardIndex + 1,
         gameDeck = session.attributes.gameDeck,
         card = Object.keys(gameDeck[currentCardIndex])[0],
+        hiddenCard = session.attributes.hiddenCard,
         dealerTotal = session.attributes.dealerTotal,
-        playerTotal = session.attributes.playerTotal + Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]);
+        playerTotal = session.attributes.playerTotal, 
+        dealAgain = deal(dealerTotal);
         
-        repromptText += " You were dealt a " + card + " Your total number of points is" + playerTotal + " Hit or fold?";
+        if(card === "Ace") {
+            var aceValue = ace(playerTotal);
+            playerTotal += aceValue;
+        }
+        
+        else{
+            playerTotal += Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]);
+        }
+        
+        if(bust(playerTotal) === true){
+            extraResponse = " You bust! My total is " + dealerTotal + ". I win. Better luck next time!  Goodbye.";
+        }
+        else if (blackjack(playerTotal) === true){
+            var hit = 0;
+            var responseString = ". I lost.  You win! Thanks for playing.  Goodbye.";
+            while(dealAgain !== false){
+                currentCardIndex+=1;
+                var dealercard = Object.keys(gameDeck[currentCardIndex])[0];
+                if (dealercard === "Ace") {
+                    var aceValue = ace(dealerTotal);
+                    dealerTotal+=aceValue;
+                }
+                else {
+                    dealerTotal += Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]); 
+                }
+                dealAgain = deal(dealerTotal);
+                hit +=1;
+            }
+            if (dealerTotal === 21) {
+                responseString = ". It's a tie. Thanks for playing.  Goodbye!"
+            }
+            extraResponse = " You got a blackjack! My hidden card is a " + hiddenCard + " I hit " + hit + " more times.  My total is " + dealerTotal + responseString;
+        }
+
+        repromptText += " You were dealt a " + card + " Your total number of points is " + playerTotal + extraResponse;
+        
+        speechOutput += repromptText;
+    sessionAttributes = {
+        "speechOutput": repromptText,
+        "repromptText": repromptText,
+        "currentCardIndex": currentCardIndex,
+        "gameDeck" : gameDeck,
+        "hiddenCard" : hiddenCard,
+        "dealerTotal": dealerTotal,
+        "playerTotal" : playerTotal
+    };
+    callback(sessionAttributes,
+        buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
+}
+
+function handleFoldRequest(intent, session, callback) {
+     var sessionAttributes = {},
+        hiddenCard = session.attributes.hiddenCard,
+        speechOutput = " You folded.  My hidden card is a " + hiddenCard,
+        shouldEndSession = false,
+        hit = 0,
+        repromptText = "",
+        responseString = " You win.  Thanks for playing!  Goodbye.",
+        currentCardIndex = session.attributes.currentCardIndex + 1,
+        gameDeck = session.attributes.gameDeck,
+        dealerTotal = session.attributes.dealerTotal,
+        playerTotal = session.attributes.playerTotal,
+        dealAgain = deal(dealerTotal);
+        
+        while(dealAgain !== false){
+            currentCardIndex+=1;
+            var dealercard = Object.keys(gameDeck[currentCardIndex])[0];
+            if (dealercard === "Ace") {
+                    var aceValue = ace(dealerTotal);
+                    dealerTotal+=aceValue;
+                }
+            else {
+                    dealerTotal += Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]); 
+                }
+            dealAgain = deal(dealerTotal);
+            hit +=1;
+        }
+        if(dealerTotal < 21 && dealerTotal < playerTotal) {
+            hit += 1;
+            currentCardIndex += 1;
+            dealerTotal += Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]); 
+        }
+        if (dealerTotal < 21 && dealerTotal > playerTotal){
+            responseString = " I win. Better luck next time, thanks for playing.  Goodbye!";
+        }
+        if(dealerTotal > 21) {
+            responseString = " I bust.  You win.  Thanks for playing.  Goodbye!";
+        }
+        else if(dealerTotal === 21) {
+            responseString = " Blackjack! I win.  Better luck next time, goodbye."
+        }
+        repromptText = " I hit " + hit + " more times.  My total is " + dealerTotal + responseString;
         
         speechOutput += repromptText;
     sessionAttributes = {
