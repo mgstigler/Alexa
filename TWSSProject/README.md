@@ -1,5 +1,17 @@
 # That's What She Said Getting Started
 
+## Skill Description
+
+This is a fun The Office themed drinking game.  It features a variety of mini games that are shuffled and read aloud by Alexa. 
+
+This game should be played in a group of people (specifically fans of NBC's The Office, although it is not completely necessary to be able to enjoy the game).  One person in the group will start by invoking Alexa.  She will then shuffle through a series of mini games and present them to the group.  Some of the mini games are specific to the user whose turn it is, some are group games.  Pass your turn to the next player by saying "Next".
+
+Some of the games include Office trivia questions, hot potato, categories, never have I ever and several more.  Right now there are about 60 trivia questions, 15 mini games, and many categories and prompts for the players.
+
+The game ends whenever the players decide they are done.   The hope is that you leave satisfied and smiling.
+
+...that's what she said
+
 ## Games
 - HOT POTATO - In this game, a timer will be set for one minute, whoever is caught when the timer goes off, loses and has to chug for five seconds 
 
