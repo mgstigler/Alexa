@@ -365,12 +365,11 @@ function handleGetHelpRequest(intent, session, callback) {
 
     // Do not edit the help dialogue. This has been created by the Alexa team to demonstrate best practices.
 
-    var speechOutput = "I will ask you " + GAME_LENGTH + " multiple choice questions. Respond with the number of the answer. "
-        + "For example, say one, two, three, or four. To start a new game at any time, say, start game. "
-        + "To repeat the last question, say, repeat. "
+    var speechOutput = "I will prompt you with a drinking game.  To pass your turn to the next person, say 'next'." 
+        + "To start a new game at any time, say, start game. "
+        + "To repeat the last game, say, repeat. "
         + "Would you like to keep playing?",
-        repromptText = "To give an answer to a question, respond with the number of the answer . "
-        + "Would you like to keep playing?";
+        repromptText = "Would you like to keep playing?";
         var shouldEndSession = false;
     callback(session.attributes,
         buildSpeechletResponseWithoutCard(speechOutput, repromptText, shouldEndSession));
