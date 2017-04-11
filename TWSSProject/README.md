@@ -6,7 +6,7 @@ This is a fun The Office themed drinking game.  It features a variety of mini ga
 
 This game should be played in a group of people (specifically fans of NBC's The Office, although it is not completely necessary to be able to enjoy the game).  One person in the group will start by invoking Alexa.  She will then shuffle through a series of mini games and present them to the group.  Some of the mini games are specific to the user whose turn it is, some are group games.  Pass your turn to the next player by saying "Next".
 
-Some of the games include Office trivia questions, hot potato, categories, never have I ever and several more.  Right now there are about 60 trivia questions, 15 mini games, and many categories and prompts for the players.
+Some of the games include Office trivia questions, hot potato, categories, never have I ever and several more.  Right now there are about 60 trivia questions, 15 mini games, and many categories and prompts for the players.  Most of the trivia questions are pulled from "https://www.sporcle.com/games/enough/theoffice"
 
 The game ends whenever the players decide they are done.   The hope is that you leave satisfied and smiling.
 

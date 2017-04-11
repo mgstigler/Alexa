@@ -2,6 +2,8 @@ AMAZON.StartOverIntent start game
 AMAZON.StartOverIntent new game
 AMAZON.StartOverIntent start
 AMAZON.StartOverIntent start new game
+AMAZON.StartOverIntent begin
+AMAZON.StartOverIntent play
 
 DontKnowIntent i don't know
 DontKnowIntent don't know
@@ -15,3 +17,21 @@ DontKnowIntent dunno
 GoIntent go
 GoIntent go to the next question
 GoIntent go again
+
+AMAZON.RepeatIntent repeat
+
+AMAZON.HelpIntent help
+
+AMAZON.YesIntent yes
+
+AMAZON.NoIntent no
+
+AMAZON.StopIntent stop
+
+AMAZON.CancelIntent cancel
+
+AMAZON.ResumeIntent resume
+
+AMAZON.PauseIntent pause
+
+AMAZON.NextIntent next
