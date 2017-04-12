@@ -5,6 +5,8 @@ FoldIntent fold
 AMAZON.StartOverIntent start game
 AMAZON.StartOverIntent new game
 AMAZON.StartOverIntent start
+AMAZON.StartOverIntent begin
+AMAZON.StartOverIntent play
 AMAZON.StartOverIntent start new game
 
 AMAZON.RepeatIntent repeat
@@ -18,3 +20,7 @@ AMAZON.NoIntent no
 AMAZON.StopIntent stop
 
 AMAZON.CancelIntent cancel
+
+AMAZON.PauseIntent pause
+
+AMAZON.ResumeIntent resume

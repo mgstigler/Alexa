@@ -4,6 +4,7 @@
 //Developed for Alexa Skills
 */
 
+
 //Game Specific Variables
 var cards = [
         {
@@ -153,8 +154,6 @@ var cards = [
 ];
 
 
-var index = 0;
-
 
 exports.handler = function (event, context) {
     try {
@@ -268,8 +267,6 @@ function onSessionEnded(sessionEndedRequest, session) {
 
 
 // ------- Skill specific logic -------
-var USER_FOLD = false;
-var DEALER_FOLD = false;
 var CARD_TITLE = "Blackjack"; // Be sure to change this for your skill.
 
 
@@ -336,7 +333,9 @@ function getWelcomeResponse(callback) {
 }
 
 
-
+/**
+ * Used to shuffle the array of cards at the beginning of each new game
+ */
 function shuffleDeck() {
     var currentIndex = cards.length, temporaryValue, randomIndex;
 
@@ -356,6 +355,9 @@ function shuffleDeck() {
   return cards;
 }
 
+/**
+ * Determines whether an ace should count as 1 or 11 points
+ */
 function ace(total) {
     var aceCount = 1;
     if(total + 11 < 21 || total + 11 === 21) {
@@ -364,6 +366,9 @@ function ace(total) {
     return aceCount;
 }
 
+/**
+ * Determines whether or not the dealer hits again
+ */
 function deal(total) {
     var deal = true;
     if(total < 17 ){
@@ -376,6 +381,9 @@ function deal(total) {
     return deal;
 }
 
+/**
+ * Determines if there is a bust
+ */
 function bust(total) {
     var bust = false
     if (total > 21) {
@@ -384,6 +392,9 @@ function bust(total) {
     return bust;
 }
 
+/**
+ * determines if there is a blackjack
+ */
 function blackjack(total) {
     var win = false
     if (total === 21) {
@@ -392,6 +403,10 @@ function blackjack(total) {
     return win;
 }
 
+
+/**
+ * Handles the hit requests
+ */
 function handleHitRequest(intent, session, callback) {
      var sessionAttributes = {},
         speechOutput = "",
@@ -456,6 +471,9 @@ function handleHitRequest(intent, session, callback) {
         buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
 }
 
+/**
+ * Handles fold requests
+ */
 function handleFoldRequest(intent, session, callback) {
      var sessionAttributes = {},
         hiddenCard = session.attributes.hiddenCard,
