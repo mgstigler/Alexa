@@ -1,0 +1,25 @@
+{
+  "name": "LoveMe",
+  "version": "1.0.0",
+  "description": "Let Alexa love you",
+  "main": "index.js",
+  "dependencies": {
+    "alexa-sdk": "^1.0.8"
+  },
+  "devDependencies": {
+      "alexa-sdk": "^1.0.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgstigler/Alexa.git"
+  },
+  "author": "mstigler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mgstigler/Alexa/issues"
+  },
+  "homepage": "https://github.com/mgstigler/Alexa#readme"
+}

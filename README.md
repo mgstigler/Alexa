@@ -1,4 +1,4 @@
-# The Office Drinking Game Alexa Skill
+# Alexa Skills
 
 ## Alexa Skill Documentation
 This provides examples of Alexa skills as well as documentation for how to use each skill.
@@ -6,8 +6,9 @@ This provides examples of Alexa skills as well as documentation for how to use e
 ## Contents
 The included Projects are both Alexa skill kit projects and personal projects that have elaborated on alexa skills.
 
-- [Alexa Project](Alexa Skill/) : an advanced trivia skill
-- [TWSS](TWSSProject/) : an in progress skill with node modules
+- [TWSS](TWSS/) : an Office themed drinking game skill 
+- [Blackjack](Blackjack/) : a skill that allows the user to play Blackjack with Alexa
+- [LoveMe](LoveMe/) : a skill that flatters the user with ridiculous comments
 
 
 ## Usage
