@@ -272,7 +272,7 @@ var CARD_TITLE = "Blackjack"; // Be sure to change this for your skill.
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
-        speechOutput = "Welcome to Blackjack.  I will be the dealer for this game.  First, I will deal us two cards each, then you will be given the option to hit or fold ",
+        speechOutput = "Welcome to Blackjack.  I will be the dealer for this game.  First, I will deal us two cards each, then you will be given the option to hit or fold. ",
         shouldEndSession = false,
         repromptText = "",
         currentCardIndex = 4,
@@ -302,7 +302,7 @@ function getWelcomeResponse(callback) {
 
         if(playerTotal === 21) {
             var hit = 0;
-            var responseString = ". I lost.  You win! Thanks for playing.  Goodbye.";
+            var responseString = " I lost.  You win! Thanks for playing.  Say 'start' to start a new game or 'stop' to end the session.";
             while(dealAgain !== false){
                 currentCardIndex+=1;
                 var dealercard = Object.keys(gameDeck[currentCardIndex])[0];
@@ -311,12 +311,12 @@ function getWelcomeResponse(callback) {
                 hit +=1;
             }
             if (dealerTotal === 21) {
-                responseString = ". It's a tie. Thanks for playing, goodbye!"
+                responseString = " It's a tie. Thanks for playing. Say 'start' to start a new game or 'stop' to end the session."
             }
-            conditionalString = "You got a blackjack! My hidden card is a " + hiddenCard + " I hit " + hit + " more times.  My total is " + dealerTotal + responseString;
+            conditionalString = " You got a blackjack! My hidden card is a " + hiddenCard + ". I hit " + hit + " more times.  My total is " + dealerTotal + ". " + responseString;
         }
         
-        repromptText += "I will show you one card and hide the other.  I drew a " + dcard1 + " You were dealt a: " + pcard1 + " and a: " + pcard2 + " Your total number of points is: " + playerTotal + conditionalString;
+        repromptText += " I will show you one card and hide the other.  I drew a " + dcard1 + ". You were dealt a " + pcard1 + " and a " + pcard2 + ". Your total number of points is " + playerTotal + ". " + conditionalString;
         
         speechOutput += repromptText;
     sessionAttributes = {
@@ -431,11 +431,11 @@ function handleHitRequest(intent, session, callback) {
         }
         
         if(bust(playerTotal) === true){
-            extraResponse = " You bust! My total is " + dealerTotal + ". I win. Better luck next time!  Goodbye.";
+            extraResponse = " You bust! My total is " + dealerTotal + ". I win. Better luck next time!  Say 'start' to start a new game or 'stop' to end the session.";
         }
         else if (blackjack(playerTotal) === true){
             var hit = 0;
-            var responseString = ". I lost.  You win! Thanks for playing.  Goodbye.";
+            var responseString = " I lost.  You win! Thanks for playing.  Say 'start' to start a new game or 'stop' to end the session.";
             while(dealAgain !== false){
                 currentCardIndex+=1;
                 var dealercard = Object.keys(gameDeck[currentCardIndex])[0];
@@ -450,12 +450,12 @@ function handleHitRequest(intent, session, callback) {
                 hit +=1;
             }
             if (dealerTotal === 21) {
-                responseString = ". It's a tie. Thanks for playing.  Goodbye!"
+                responseString = " It's a tie. Thanks for playing.  Say 'start' to start a new game or 'stop' to end the session."
             }
-            extraResponse = " You got a blackjack! My hidden card is a " + hiddenCard + " I hit " + hit + " more times.  My total is " + dealerTotal + responseString;
+            extraResponse = " You got a blackjack! My hidden card is a " + hiddenCard + ". I hit " + hit + " more times.  My total is " + dealerTotal + ". " + responseString;
         }
 
-        repromptText += " You were dealt a " + card + " Your total number of points is " + playerTotal + extraResponse;
+        repromptText += " You were dealt a " + card + ". Your total number of points is " + playerTotal + ". " + extraResponse;
         
         speechOutput += repromptText;
     sessionAttributes = {
@@ -477,11 +477,11 @@ function handleHitRequest(intent, session, callback) {
 function handleFoldRequest(intent, session, callback) {
      var sessionAttributes = {},
         hiddenCard = session.attributes.hiddenCard,
-        speechOutput = " You folded.  My hidden card is a " + hiddenCard,
+        speechOutput = " You folded.  My hidden card is a " + hiddenCard + ". ",
         shouldEndSession = false,
         hit = 0,
         repromptText = "",
-        responseString = " You win.  Thanks for playing!  Goodbye.",
+        responseString = " You win.  Thanks for playing!  Say 'start' to start a new game or 'stop' to end the session.",
         currentCardIndex = session.attributes.currentCardIndex + 1,
         gameDeck = session.attributes.gameDeck,
         dealerTotal = session.attributes.dealerTotal,
@@ -507,15 +507,15 @@ function handleFoldRequest(intent, session, callback) {
             dealerTotal += Number(gameDeck[currentCardIndex][Object.keys(gameDeck[currentCardIndex])[0]]); 
         }
         if (dealerTotal < 21 && dealerTotal > playerTotal){
-            responseString = " I win. Better luck next time, thanks for playing.  Goodbye!";
+            responseString = " I win. Better luck next time, thanks for playing.  Say 'start' to start a new game or 'stop' to end the session.";
         }
         if(dealerTotal > 21) {
-            responseString = " I bust.  You win.  Thanks for playing.  Goodbye!";
+            responseString = " I bust.  You win.  Thanks for playing.  Say 'start' to start a new game or 'stop' to end the session.";
         }
         else if(dealerTotal === 21) {
-            responseString = " Blackjack! I win.  Better luck next time, goodbye."
+            responseString = " Blackjack! I win.  Better luck next time. Say 'start' to start a new game or 'stop' to end the session.";
         }
-        repromptText = " I hit " + hit + " more times.  My total is " + dealerTotal + responseString;
+        repromptText = " I hit " + hit + " more times.  My total is " + dealerTotal +". " + responseString;
         
         speechOutput += repromptText;
     sessionAttributes = {
@@ -555,8 +555,7 @@ function handleGetHelpRequest(intent, session, callback) {
 
     // Do not edit the help dialogue. This has been created by the Alexa team to demonstrate best practices.
 
-    var speechOutput = "I will ask you " + GAME_LENGTH + " multiple choice questions. Respond with the number of the answer. "
-        + "For example, say one, two, three, or four. To start a new game at any time, say, start game. "
+    var speechOutput = "I will deal you a new card if you say hit, and will deal myself cards if you say fold. To start a new game at any time, say, start game. "
         + "To repeat the last question, say, repeat. "
         + "Would you like to keep playing?",
         repromptText = "To give an answer to a question, respond with the number of the answer . "
