@@ -7,7 +7,16 @@
       "intent": "ListCategories"
     },
     {
-      "intent": "OldSchool"
+      "intent": "Shakespearean"
+    },
+    {
+      "intent": "Odd"
+    },    
+    {
+      "intent": "FromAlexa"
+    },
+    {
+      "intent": "Backhanded"
     },
     {
       "intent": "AMAZON.StopIntent"

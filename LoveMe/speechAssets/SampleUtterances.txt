@@ -12,4 +12,22 @@ ListCategories list categories
 ListCategories what are the categories
 
 
-OldSchool old school
+Shakespearean shakespearean
+Shakespearean tell me a shakespearean compliment
+Shakespearean shakespearean compliment
+Shakespearean I want to hear a shakespearean compliment
+
+FromAlexa from you
+FromAlexa tell me a compliment from you
+FromAlexa compliment from you
+FromAlexa I want to hear a compliment from you
+
+Odd odd
+Odd tell me an odd compliment
+Odd odd compliment
+Odd I want to hear an odd compliment
+
+Backhanded backhanded
+Backhanded backhanded compliment
+Backhanded tell me a backhanded compliment
+Backhanded I want to hear a backhanded compliment

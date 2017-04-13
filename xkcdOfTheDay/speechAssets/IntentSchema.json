@@ -1,0 +1,25 @@
+{
+  "intents": [
+    {
+      "intent": "ReadXkcd"
+    },
+    {
+      "intent": "ComicNumber",
+      "slots": [
+        {
+          "name": "xkcdNumber",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+ReadXkcd read xkcd
+ReadXkcd read xkcd of the day
+ReadXkcd read comic of the day
+
+ComicNumber read {xkcdNumber}
+ComicNumber read comic {xkcdNumber}
+ComicNumber read xkcd {xkcdNumber}
+ComicNumber show me comic {xkcdNumber}
+ComicNumber show {xkcdNumber}
+ComicNumber show me xkcd {xkcdNumber}
+
+
+

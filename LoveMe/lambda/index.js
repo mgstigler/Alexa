@@ -13,7 +13,7 @@ exports.handler = function(event, context, callback){
 var handlers = {
 
   'LaunchRequest': function () {
-    this.emit(':ask', 'Hi there, beautiful.  ', 'Try saying give me love so I can compliment you.');
+    this.emit(':ask', 'Hi there beautiful.  Say give me love or categories to get started.', 'Try saying give me love so I can compliment you.');
   },
 
   'GiveLove': function () {
@@ -27,9 +27,24 @@ var handlers = {
   	this.emit(':tell', JSON.stringify(categories));
   },
 
-  'OldSchool': function () {
+  'Shakespearean': function () {
   	var index = Math.floor(Math.random()*compliments.compliments[0][Object.keys(compliments.compliments[0])[0]].length);
   	this.emit(':tell', JSON.stringify(compliments.compliments[0][Object.keys(compliments.compliments[0])[0]][index]));
+  },
+
+  'Odd': function () {
+  	var index = Math.floor(Math.random()*compliments.compliments[1][Object.keys(compliments.compliments[1])[0]].length);
+  	this.emit(':tell', JSON.stringify(compliments.compliments[1][Object.keys(compliments.compliments[1])[0]][index]));
+  },
+
+  'Backhanded': function () {
+  	var index = Math.floor(Math.random()*compliments.compliments[2][Object.keys(compliments.compliments[2])[0]].length);
+  	this.emit(':tell', JSON.stringify(compliments.compliments[2][Object.keys(compliments.compliments[2])[0]][index]));
+  },
+
+  'FromAlexa': function () {
+  	var index = Math.floor(Math.random()*compliments.compliments[3][Object.keys(compliments.compliments[3])[0]].length);
+  	this.emit(':tell', JSON.stringify(compliments.compliments[3][Object.keys(compliments.compliments[3])[0]][index]));
   },
 
   'AMAZON.StopIntent': function () {
@@ -46,10 +61,10 @@ var handlers = {
   },
 
   'AMAZON.HelpIntent' : function () {
-    this.emit(':ask', `You can ask me to give you love and I will shower you with it.`,  `What would you like to do?`);
+    this.emit(':ask', `You can ask me to give you love and I will shower you with it. Or you can ask for a specific category.  To hear the categories, just ask me what are the categories.`,  `What would you like to do?`);
   },
   'Unhandled' : function () {
-    this.emit(':ask', `You can ask me to give you love and I will shower you with it., or listen to the alexa dev chat podcast.`,  `What would you like to do?`);
+    this.emit(':ask', `You can ask me to give you love and I will shower you with it. Or you can ask for a specific category.  To hear the categories, just ask me what are the categories.`,  `What would you like to do?`);
   }
 
 };

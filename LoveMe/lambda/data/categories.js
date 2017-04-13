@@ -1,6 +1,8 @@
 var categories = [
-	"old school",
-	"odd"
+	"shakespearean",
+	"odd",
+	"backhanded",
+	"from alexa"
 ];
 
 exports.categories = categories;
