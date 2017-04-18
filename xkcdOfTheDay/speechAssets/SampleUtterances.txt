@@ -9,5 +9,10 @@ ComicNumber show me comic {xkcdNumber}
 ComicNumber show {xkcdNumber}
 ComicNumber show me xkcd {xkcdNumber}
 
+Random random
+Random random comic
+Random read me a random comic
+Random show me a random comic
+Random random xkcd
 
 

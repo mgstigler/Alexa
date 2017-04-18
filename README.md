@@ -9,6 +9,7 @@ The included Projects are both Alexa skill kit projects and personal projects th
 - [TWSS](TWSS/) : an Office themed drinking game skill 
 - [Blackjack](Blackjack/) : a skill that allows the user to play Blackjack with Alexa
 - [LoveMe](LoveMe/) : a skill that flatters the user with ridiculous comments
+- [xkcd](xkcdOftheDay/) : a skill that reads xkcd comics aloud
 
 
 ## Usage
