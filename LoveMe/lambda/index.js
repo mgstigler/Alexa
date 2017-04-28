@@ -19,41 +19,41 @@ var handlers = {
   'GiveLove': function () {
   	var index = Math.floor(Math.random()*compliments.compliments.length);
   	var subIndex = Math.floor(Math.random()*compliments.compliments[index][Object.keys(compliments.compliments[index])[0]].length);
-    this.emit(':tell', JSON.stringify(compliments.compliments[index][Object.keys(compliments.compliments[index])[0]][subIndex]));
+    this.emit(':ask', JSON.stringify(compliments.compliments[index][Object.keys(compliments.compliments[index])[0]][subIndex]) + " Would you like to hear another?");
   },
 
 
   'ListCategories': function () {
-  	this.emit(':tell', JSON.stringify(categories));
+  	this.emit(':ask', JSON.stringify(categories) + " Which category would you like to hear?");
   },
 
   'Shakespearean': function () {
   	var index = Math.floor(Math.random()*compliments.compliments[0][Object.keys(compliments.compliments[0])[0]].length);
-  	this.emit(':tell', JSON.stringify(compliments.compliments[0][Object.keys(compliments.compliments[0])[0]][index]));
+  	this.emit(':ask', JSON.stringify(compliments.compliments[0][Object.keys(compliments.compliments[0])[0]][index])+ " Would you like to hear another?");
   },
 
   'Odd': function () {
   	var index = Math.floor(Math.random()*compliments.compliments[1][Object.keys(compliments.compliments[1])[0]].length);
-  	this.emit(':tell', JSON.stringify(compliments.compliments[1][Object.keys(compliments.compliments[1])[0]][index]));
+  	this.emit(':ask', JSON.stringify(compliments.compliments[1][Object.keys(compliments.compliments[1])[0]][index]) + " Would you like to hear another?");
   },
 
   'Backhanded': function () {
   	var index = Math.floor(Math.random()*compliments.compliments[2][Object.keys(compliments.compliments[2])[0]].length);
-  	this.emit(':tell', JSON.stringify(compliments.compliments[2][Object.keys(compliments.compliments[2])[0]][index]));
+  	this.emit(':ask', JSON.stringify(compliments.compliments[2][Object.keys(compliments.compliments[2])[0]][index]) + " Would you like to hear another?");
   },
 
   'FromAlexa': function () {
   	var index = Math.floor(Math.random()*compliments.compliments[3][Object.keys(compliments.compliments[3])[0]].length);
-  	this.emit(':tell', JSON.stringify(compliments.compliments[3][Object.keys(compliments.compliments[3])[0]][index]));
+  	this.emit(':ask', JSON.stringify(compliments.compliments[3][Object.keys(compliments.compliments[3])[0]][index]) + " Would you like to hear another?");
   },
 
   'AMAZON.StopIntent': function () {
     // State Automatically Saved with :tell
-    this.emit(':tell', `Goodbye, darling.`);
+    this.emit(':tell', `Goodbye, beautiful.`);
   },
   'AMAZON.CancelIntent': function () {
     // State Automatically Saved with :tell
-    this.emit(':tell', `Goodbye, darling.`);
+    this.emit(':tell', `Goodbye, beautiful.`);
   },
   'SessionEndedRequest': function () {
     // Force State Save When User Times Out
@@ -61,10 +61,10 @@ var handlers = {
   },
 
   'AMAZON.HelpIntent' : function () {
-    this.emit(':ask', `You can ask me to give you love and I will shower you with it. Or you can ask for a specific category.  To hear the categories, just ask me what are the categories.`,  `What would you like to do?`);
+    this.emit(':ask', `You can ask me to give you love and I will shower you with it. Or you can ask for a specific category.  What would you like to do?`,  `What would you like to do?`);
   },
   'Unhandled' : function () {
-    this.emit(':ask', `You can ask me to give you love and I will shower you with it. Or you can ask for a specific category.  To hear the categories, just ask me what are the categories.`,  `What would you like to do?`);
+    this.emit(':ask', `You can ask me to give you love and I will shower you with it. Or you can ask for a specific category.  hat would you like to do?`,  `What would you like to do?`);
   }
 
 };

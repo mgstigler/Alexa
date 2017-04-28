@@ -10,6 +10,7 @@ var totalComics = 1800;
 
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
+  alexa.appId = 'amzn1.ask.skill.be7109a4-ef47-48bd-9ac9-ade8bb20b696';
   alexa.registerHandlers(handlers);
   alexa.execute();
 };
@@ -18,7 +19,7 @@ var handlers = {
 
   //Handles the launch request
   'LaunchRequest': function () {
-    this.emit(':ask', 'Welcome to xkcd of the day! Say read to hear the comic of the day or say a number of a comic you want to hear.', 'Try saying hello!');
+    this.emit(':ask', 'Welcome to xkcd comics! You can say read to hear the comic of the day, say a number of a comic you want to hear, or say random to hear a random comic. What would you like to do?', 'Try saying read!');
   },
 
 
@@ -66,7 +67,7 @@ var handlers = {
   		num = comicId;
   	}
   	else {
-  		this.emit(':tell', "Sorry, I cannot find this comic.  Please try another one.  ");
+  		this.emit(':ask', "Sorry, I cannot find this comic.  What is another comic you would like to hear?");
   	}
 
   	var numUrl = "https://dynamic.xkcd.com/api-0/jsonp/comic/" + num;
@@ -94,13 +95,13 @@ var handlers = {
                     }
                 }
                 catch (e) {
-                	this.emit(':tell', "Sorry, I cannot find this comic.  Please try another one.  ");
+                	this.emit(':ask', "Sorry, I cannot find this comic.  What is another comic you would like to hear?");
                     console.error(e);
                     return;
                 }
             });
         }).on('error', (e) => {
-        	this.emit(':tell', "Sorry, I cannot find this comic.  Please try another one.  ");
+        	this.emit(':ask', "Sorry, I cannot find this comic.  What is another comic you would like to hear?");
             console.error(e);
             return;
         });
@@ -136,13 +137,13 @@ var handlers = {
                     }
                 }
                 catch (e) {
-                  this.emit(':tell', "Sorry, I cannot find this comic.  Please try another one.  ");
+                  this.emit(':ask', "Sorry, I cannot find this comic.  What is another comic you would like to hear?");
                     console.error(e);
                     return;
                 }
             });
         }).on('error', (e) => {
-          this.emit(':tell', "Sorry, I cannot find this comic.  Please try another one.  ");
+          this.emit(':ask', "Sorry, I cannot find this comic.  What is another comic you would like to hear?");
             console.error(e);
             return;
         });
@@ -164,11 +165,11 @@ var handlers = {
   },
 
   'AMAZON.HelpIntent' : function () {
-  this.emit(':ask', `You can ask me to read the comic of the day, a specific comic by number or a random comic.  What would you like to do?`,  `What would you like to do?`);
+  this.emit(':ask', `You can ask me to read the comic of the day, a specific comic by number, or a random comic.  What would you like to do?`,  `What would you like to do?`);
   },
 
   'Unhandled' : function () {
-  this.emit(':ask', `You can ask me to read the comic of the day, a specific comic by number or a random comic.  What would you like to do?`,  `What would you like to do?`);
+  this.emit(':ask', `You can ask me to read the comic of the day, a specific comic by number, or a random comic.  What would you like to do?`,  `What would you like to do?`);
   }
 
 };

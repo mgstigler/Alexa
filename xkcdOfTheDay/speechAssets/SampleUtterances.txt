@@ -8,6 +8,10 @@ ComicNumber read xkcd {xkcdNumber}
 ComicNumber show me comic {xkcdNumber}
 ComicNumber show {xkcdNumber}
 ComicNumber show me xkcd {xkcdNumber}
+ComicNumber {xkcdNumber}
+ComicNumber tell number {xkcdNumber}
+
+
 
 Random random
 Random random comic

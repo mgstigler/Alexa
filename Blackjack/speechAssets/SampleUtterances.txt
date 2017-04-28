@@ -6,7 +6,6 @@ AMAZON.StartOverIntent start game
 AMAZON.StartOverIntent new game
 AMAZON.StartOverIntent start
 AMAZON.StartOverIntent begin
-AMAZON.StartOverIntent play
 AMAZON.StartOverIntent start new game
 
 AMAZON.RepeatIntent repeat

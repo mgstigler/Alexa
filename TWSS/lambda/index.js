@@ -7,13 +7,13 @@
 //Game Specific Variables
 var games = [
  {
-        "Hot Potato.  In this game, set a timer for one minute, whoever is caught when the timer goes off, loses and has to chug for five seconds. ": "1"
+        "Hot Potato.  In this game, players must list items in the category I say.  Set a timer for one minute, whoever is caught when the timer goes off, loses and has to chug for five seconds. ": "1"
     },
     {
         "Women's Appreciation.  Girls Drink. " : "2"
     },
     {
-        "Impish or Admirable.  You are Belschnikle.  You will decide on what is impish (eg: you're a bitch if you haven't).  Drink if you're impish, assign a drink if you're admirable. ":"3"
+        "Impish or Admirable.  You are Belschnikle.  You will decide on what is impish.  Also known as you're a bitch if you haven't.  Drink if you're impish, assign a drink if you're admirable. ":"3"
     },
     {
         "Dream Team.  Choose a mate to drink with you until told otherwise. ":"4"
@@ -22,7 +22,7 @@ var games = [
         "Desert Island.  In this game, you decide on a desert island category, the other players must go around and list items in that category. First player to get stumped drinks for five seconds. ":"5"
     },
     {
-        "Email Surveillance.  In this game, you are assigned the role of assassin, if other players catch you winking at them, they have been assassinated and must drink their drink, you are the assassin until another person is assigned. ":"6"
+        "Email Surveillance.  In this game, you are assigned the role of assassin.  If other players catch you winking at them, they have been assassinated and must drink their drink.  You are the assassin until another person is assigned. ":"6"
     },
     {
         "Casual Friday. You pick an article of clothing that the player to your right has to take off for an undetermined amount of time. ":"7"
@@ -49,7 +49,7 @@ var games = [
         "Gossip.  Most likely to.  Drink for number of fingers pointed your way. ":"14"
     },
     {
-        "Booze Cruise.  You are Captain Jack.  You can assign life vests to all but one passenger on the ship.  All assigned life jackets, take a sip, the one without takes a shot. ":"15"
+        "Booze Cruise.  You are Captain Jack.  You can assign life vests to all but one passenger on the ship.  All assigned life jackets, take a sip.  If you are not assigned a life jacket, take a shot. ":"15"
     },
 ];
 
@@ -124,15 +124,15 @@ var gossip = [
     ];
 
 var hotpotato = [
-    "Players must go around and list the Office Christmas episodes",
-    "Players must go around and list made up diseases created by Jim and Pam during Season 1 Episode 3 Health Care",
-    "Players must go around and list the games that make up the Office Olympics",
-    "Players must go around and list different Halloween costumes that have been worn in the Office",
-    "Players must go around and list the cliches Phyllis says when it rains outside",
-    "Players must go around and list the names of Michael's lovers",
-    "Players must go around and list the names of Angela's cats",
-    "Players must go around and list the different Dunder Mifflin branches",
-    "Players must go around and list the names of the different bosses of Dunder Mifflin Scranton"
+    "List the Office Christmas episodes.  You start.",
+    "List made up diseases created by Jim and Pam during Season 1 Episode 3 Health Care. You start.",
+    "List the games that make up the Office Olympics. You start.",
+    "List different Halloween costumes that have been worn in the Office. You start.",
+    "List the cliches Phyllis says when it rains outside. You start.",
+    "List the names of Michael's lovers. You start.",
+    "List the names of Angela's cats. You start.",
+    "List the different Dunder Mifflin branches. You start.",
+    "List the names of the different bosses of Dunder Mifflin Scranton. You start."
     ];
 
 
@@ -207,18 +207,7 @@ function onIntent(intentRequest, session, callback) {
     }
 
     // dispatch custom intents to handlers here
-    if ("AnswerIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } else if ("AnswerOnlyIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } 
-    if ("DontKnowIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } else if ("AMAZON.YesIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } else if ("AMAZON.NoIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } else if ("AMAZON.StartOverIntent" === intentName) {
+    if ("AMAZON.StartOverIntent" === intentName) {
         getWelcomeResponse(callback);
     } else if ("AMAZON.RepeatIntent" === intentName) {
         handleRepeatRequest(intent, session, callback);
@@ -232,7 +221,7 @@ function onIntent(intentRequest, session, callback) {
         handleNextRequest(intent, session, callback);
     }
         else {
-        throw "Invalid intent";
+            handleGetHelpRequest(intent, session, callback);
     }
 }
 
@@ -252,7 +241,7 @@ var CARD_TITLE = "That's What She Said";
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
-        speechOutput = "Welcome to That's What She Said. One player starts.  Say next to move on to the next player.  Let's begin" + " ",
+        speechOutput = "Welcome to That's What She Said. One player starts.  Say next to move on to the next player.  Let's begin. " + " ",
         shouldEndSession = false,
         spokenQuestion = "",
         repromptText = "",
@@ -301,7 +290,7 @@ function populateHotPotato() {
 }
 
 function populateTrivia() {
-    var index = questions.length;
+    var index = triviaQuestions.length;
     var triviaQ = Math.floor(Math.random()*index);
     var triviaQuestion = triviaQuestions[triviaQ];
     return triviaQuestion;
@@ -365,10 +354,7 @@ function handleGetHelpRequest(intent, session, callback) {
 
     // Do not edit the help dialogue. This has been created by the Alexa team to demonstrate best practices.
 
-    var speechOutput = "I will prompt you with a drinking game.  To pass your turn to the next person, say next." 
-        + "To start a new game at any time, say, start game. "
-        + "To repeat the last game, say, repeat. "
-        + "Would you like to keep playing?",
+    var speechOutput = "I will prompt you with a drinking game.  To pass your turn to the next person, say next. To start a new game at any time, say, start new game. To repeat the last game, say, repeat. Would you like to keep playing?",
         repromptText = "Would you like to keep playing?";
         var shouldEndSession = false;
     callback(session.attributes,

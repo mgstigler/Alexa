@@ -62,7 +62,6 @@ function getImage(dayUrl) {
                                         return;
                                     } else {
                                         console.log("success uploading to s3");
-                                        callback();
                                         return;
                                     }
                                 }); 

@@ -226,14 +226,7 @@ function onIntent(intentRequest, session, callback) {
     }
 
     // dispatch custom intents to handlers here
-    if ("AnswerIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } else if ("AnswerOnlyIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } 
-    if ("DontKnowIntent" === intentName) {
-        handleAnswerRequest(intent, session, callback);
-    } else if ("AMAZON.YesIntent" === intentName) {
+    if ("AMAZON.YesIntent" === intentName) {
         handleAnswerRequest(intent, session, callback);
     } else if ("AMAZON.NoIntent" === intentName) {
         handleAnswerRequest(intent, session, callback);
@@ -253,7 +246,8 @@ function onIntent(intentRequest, session, callback) {
         handleFoldRequest(intent, session, callback);
     }
         else {
-        throw "Invalid intent";
+            handleGetHelpRequest(intent, session, callback);
+
     }
 }
 
@@ -556,9 +550,9 @@ function handleGetHelpRequest(intent, session, callback) {
     // Do not edit the help dialogue. This has been created by the Alexa team to demonstrate best practices.
 
     var speechOutput = "I will deal you a new card if you say hit, and will deal myself cards if you say fold. To start a new game at any time, say, start game. "
-        + "To repeat the last question, say, repeat. "
+        + "To repeat the last deal, say, repeat. "
         + "Would you like to keep playing?",
-        repromptText = "To give an answer to a question, respond with the number of the answer . "
+        repromptText = "To keep playing, respond with hit . "
         + "Would you like to keep playing?";
         var shouldEndSession = false;
     callback(session.attributes,

@@ -1,12 +1,6 @@
 {
   "intents": [
     {
-      "intent": "DontKnowIntent"
-    },
-    {
-      "intent": "GoIntent"
-    },
-    {
       "intent": "AMAZON.StartOverIntent"
     },
     {
