@@ -10,7 +10,7 @@ xkcd is a A webcomic of romance, sarcasm, math, and language created by Randall 
 The Alexa skill utilizes the public xkcd api: https://xkcd.com/json.html
 
 - API Use
-	This skill uses the API to gather the current comic as well as a specific comic (by number).  Another lambda function is used to fill an S3 library of images to provide images for the Skill cards.  The images are grabbed by a comic number and the img source provided in the JSON response.  For more information on the S3 upload process, look at the ImageUploader project ([ImageUploader](./imageUploader/))
+	This skill uses the API to gather the current comic as well as a specific comic (by number).  Another lambda function is used to fill an S3 library of images to provide images for the Skill cards.  The images are grabbed by a comic number and the img source provided in the JSON response.  For more information on the S3 upload process, look at the ImageUploader project ([ImageUploader](../imageUploader/))
 
 - Skill Cards
 
