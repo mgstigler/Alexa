@@ -241,7 +241,7 @@ var CARD_TITLE = "That's What She Said";
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
-        speechOutput = "Welcome to That's What She Said. One player starts.  Say next to move on to the next player.  Let's begin. " + " ",
+        speechOutput = "Welcome to That's What She Said. One player starts.  Say next to move on to the next player or stop to end the session.  Let's begin. " + " ",
         shouldEndSession = false,
         spokenQuestion = "",
         repromptText = "",
@@ -354,8 +354,8 @@ function handleGetHelpRequest(intent, session, callback) {
 
     // Do not edit the help dialogue. This has been created by the Alexa team to demonstrate best practices.
 
-    var speechOutput = "I will prompt you with a drinking game.  To pass your turn to the next person, say next. To start a new game at any time, say, start new game. To repeat the last game, say, repeat. Would you like to keep playing?",
-        repromptText = "Would you like to keep playing?";
+    var speechOutput = "I will prompt you with a drinking game.  To pass your turn to the next person, say next. To start a new game at any time, say, start new game. To repeat the last game, say, repeat. To end the session, say stop. What would you like to do?",
+        repromptText = "What would you like to do?";
         var shouldEndSession = false;
     callback(session.attributes,
         buildSpeechletResponseWithoutCard(speechOutput, repromptText, shouldEndSession));
