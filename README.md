@@ -10,6 +10,7 @@ The included Projects are both Alexa skill kit projects and personal projects th
 - [Blackjack](Blackjack/) : a skill that allows the user to play Blackjack with Alexa
 - [LoveMe](LoveMe/) : a skill that flatters the user with ridiculous comments
 - [xkcd](xkcdOfTheDay/) : a skill that reads xkcd comics aloud
+- [RonSwanson](RonSwanson/) : a skill that reads Ron Swanson quotes aloud
 
 
 ## Usage
