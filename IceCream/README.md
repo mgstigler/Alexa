@@ -25,7 +25,7 @@ __Custom slot types__
 
 Prequisites
 -----------
-1. Have an AWS account [Go here to create one.](www.aws.amazon.com)
+1. Have an AWS account [Go here to create one](https://aws.amazon.com/)
 2. IDE of choice.  I will be using Visual Studio Code
 3. Installed Node.js. [More information on Node.js](https://nodejs.org/en/)
 4. Have access to the Alexa Developer Portal [Click here to sign in](https://developer.amazon.com/)
@@ -39,7 +39,7 @@ __Note: Make sure your region in the top right of your console is set to US East
 
 From the lambda console, choose *Create function* and complete the following steps:
 1. Select "Author from Scratch"
-2. Name your function ___________.
+2. Name your function "Ice Cream Truck".
 3. Select "Node.js 6.10" as the runtime
 4. Select "Create a custom role" if you don't have one for lambda functions already.  Then select 
 5. When you are brought to your lambda function, copy the __ARN__.  This amazon resource name is what you will use to connect your skill's intents and utterances to your function.
