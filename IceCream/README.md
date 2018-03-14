@@ -32,20 +32,6 @@ Prequisites
 
 
 
-Configure your Skill in the Developer Portal
---------------------------------------------
-1. Sign in to the developer portal
-2. Click "Alexa"
-3. Click "Get Started" under the "Alexa Skills Kit" option.
-4. Click "Create Skill"
-5. Enter a name for your skill and select "Custom"
-
-The left toolbar will walk you through everything you need to create your skill.  We will start with the *invocation name* which is used to invoke your skill through the device. I will call it "ice cream truck".
-
-Next, we will configure the Intents.  I created one called "ReadFlavors" with sample utterances.  The full JSON file for my schema can be found [here]()
-
-
-
 Create a Function in AWS
 ------------------------
 When you log in to the AWS management console, select *Lambda* from the list of services.  Lambda is the serverless computing option that AWS provides and is what is used to run and communicate with your Alexa skill.  
@@ -58,6 +44,30 @@ From the lambda console, choose *Create function* and complete the following ste
 3. Select "Node.js 6.10" as the runtime
 4. Select "Create a custom role" if you don't have one for lambda functions already.  Then select "Lambda basic execution".
 5. When you are brought to your lambda function, copy the __ARN__.  This amazon resource name is what you will use to connect your skill's intents and utterances to your function.
+6. Select "Alexa Skills Kit" from the list of triggers to trigger your function.  Then click "Add" in the bottom right and "Save" in the top right to save your function's configuration.
+
+![function design](https://github.com/mgstigler/Alexa/tree/master/IceCream/images/lambda.png)
+
+
+
+Configure your Skill in the Developer Portal
+--------------------------------------------
+1. Sign in to the developer portal
+2. Click "Alexa"
+3. Click "Get Started" under the "Alexa Skills Kit" option.
+4. Click "Create Skill"
+5. Enter a name for your skill and select "Custom"
+
+The left toolbar will walk you through everything you need to create your skill.  We will start with the *invocation name* which is used to invoke your skill through the device. I will call it "ice cream truck".
+
+Next, we will configure the Intents.  I created one called "ReadFlavors" with sample utterances.  The full JSON file for my schema can be found [here](https://github.com/mgstigler/Alexa/blob/master/IceCream/speechAssets/IntentSchema.json)
+
+![intent design](https://github.com/mgstigler/Alexa/tree/master/IceCream/images/intents.png)
+
+When you have configured your intents with utterances, click "Save model" and make sure there are no errors.  If all goes well, build your model by clicking "Build Model".
+
+In the left sidebar under "Endpoints", 
+
 
 
 Integrate with DynamoDB
