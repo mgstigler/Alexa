@@ -38,7 +38,7 @@ Create a Function in AWS
 ------------------------
 When you log in to the AWS management console, select *Lambda* from the list of services.  Lambda is the serverless computing option that AWS provides and is what is used to run and communicate with your Alexa skill.  
 
-__Note: Make sure your region in the top right of your console is set to US East (N. Virginia). This region supports lambda functions triggered by Alexa skills.__
+> __Note: Make sure your region in the top right of your console is set to US East (N. Virginia). This region supports lambda functions triggered by Alexa skills.__
 
 From the lambda console, choose *Create function* and complete the following steps:
 1. Select "Author from Scratch"
