@@ -3,7 +3,7 @@ Getting Started with Alexa
 
 Not long ago, smart assistants were thought of as fun, gimicky devices used to tell jokes and check the weather.  Since the increasing availability of developer kits and tools, these devices have grown in their capabilities and are supporting many more useful and powerful applications from banking support to smart home communication to integrated applications with mobile.  Alexa is one of the most popular smart assistants and offers over 25,000 skills to help make tasks simpler and engaging for users.  With this rise in natural language processing, it becomes increasingly more necessary for developers to know how to create and publish Alexa skills.  
 
-In this tutorial, we are going to cover the basics of getting started with Alexa development and will create a simple skill that will recite available ice cream flavors.
+In this tutorial, we are going to cover the basics of getting started with Alexa development and will create a simple skill that will recite available ice cream flavors for an ice cream truck.
 
 Key Terms
 ---------
@@ -31,19 +31,6 @@ Prequisites
 4. Have access to the Alexa Developer Portal [Click here to sign in](https://developer.amazon.com/)
 
 
-Create a Function in AWS
-------------------------
-When you log in to the AWS management console, select *Lambda* from the list of services.  Lambda is the serverless computing option that AWS provides and is what is used to run and communicate with your Alexa skill.  
-
-__Note: Make sure your region in the top right of your console is set to US East (N. Virginia). This region supports lambda functions triggered by Alexa skills.__
-
-From the lambda console, choose *Create function* and complete the following steps:
-1. Select "Author from Scratch"
-2. Name your function "Ice Cream Truck".
-3. Select "Node.js 6.10" as the runtime
-4. Select "Create a custom role" if you don't have one for lambda functions already.  Then select 
-5. When you are brought to your lambda function, copy the __ARN__.  This amazon resource name is what you will use to connect your skill's intents and utterances to your function.
-
 
 Configure your Skill in the Developer Portal
 --------------------------------------------
@@ -53,12 +40,29 @@ Configure your Skill in the Developer Portal
 4. Click "Create Skill"
 5. Enter a name for your skill and select "Custom"
 
-The left toolbar will walk you through everything you need to create your skill.  We will start with the *invocation name* which is used to invoke your skill through the device. 
+The left toolbar will walk you through everything you need to create your skill.  We will start with the *invocation name* which is used to invoke your skill through the device. I will call it "ice cream truck".
 
+Next, we will configure the Intents.  I created one called "ReadFlavors" with sample utterances.  The full JSON file for my schema can be found [here]()
+
+
+
+Create a Function in AWS
+------------------------
+When you log in to the AWS management console, select *Lambda* from the list of services.  Lambda is the serverless computing option that AWS provides and is what is used to run and communicate with your Alexa skill.  
+
+__Note: Make sure your region in the top right of your console is set to US East (N. Virginia). This region supports lambda functions triggered by Alexa skills.__
+
+From the lambda console, choose *Create function* and complete the following steps:
+1. Select "Author from Scratch"
+2. Name your function.  I named mine "Ice Cream Truck".
+3. Select "Node.js 6.10" as the runtime
+4. Select "Create a custom role" if you don't have one for lambda functions already.  Then select "Lambda basic execution".
+5. When you are brought to your lambda function, copy the __ARN__.  This amazon resource name is what you will use to connect your skill's intents and utterances to your function.
 
 
 Integrate with DynamoDB
 -----------------------
+
 
 
 Publishing Process

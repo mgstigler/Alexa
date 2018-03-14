@@ -1,6 +1,6 @@
 var Alexa = require('alexa-sdk');
-var https = require("https");
-const request = require('request');
+
+var flavors = ["strawberry", "chocolate", "vanilla", "mint chocolate chip"];
 
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
@@ -13,11 +13,11 @@ var handlers = {
 
   //Handles the launch request
   'LaunchRequest': function () {
-    this.emit(':ask', 'Welcome to Ron Swanson Quotes! You can say read to hear a Ron Swanson quote, or say stop to end the session. What would you like to do?', 'Try saying read!');
+    this.emit(':ask', 'Welcome to the ice cream truck! Ask to hear the flavors', 'Try asking what the flavors are.');
   },
 
 
-  //Reads a Ron quote
+  //Reads the list of ice cream flavors
   'ReadFlavor': function () {
 
   	https.get(url, (response) => {

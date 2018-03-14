@@ -1,16 +1,33 @@
 {
-  "intents": [
-    {
-      "intent": "ReadFlavor"
-    },
-    {
-      "intent": "AMAZON.StopIntent"
-    },
-    {
-      "intent": "AMAZON.CancelIntent"
-    },
-    {
-      "intent": "AMAZON.HelpIntent"
+    "languageModel": {
+        "invocationName": "ice cream truck",
+        "intents": [
+            {
+                "name": "AMAZON.CancelIntent",
+                "slots": [],
+                "samples": []
+            },
+            {
+                "name": "AMAZON.HelpIntent",
+                "slots": [],
+                "samples": []
+            },
+            {
+                "name": "AMAZON.StopIntent",
+                "slots": [],
+                "samples": []
+            },
+            {
+                "name": "ReadFlavors",
+                "slots": [],
+                "samples": [
+                    "can you read me the flavors",
+                    "tell me the flavors",
+                    "what are your flavors",
+                    "What flavors do you have"
+                ]
+            }
+        ],
+        "types": []
     }
-  ]
 }
