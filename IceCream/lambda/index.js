@@ -4,7 +4,7 @@ var flavors = ["strawberry", "chocolate", "vanilla", "mint chocolate chip"];
 
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
-  alexa.appId = 'amzn1.ask.skill.9b1c7354-ee7a-46c5-a245-40ea0c9dd2db';
+  alexa.appId = 'amzn1.ask.skill.41b68f8c-dc8c-48cd-b794-3ee33271749e';
   alexa.registerHandlers(handlers);
   alexa.execute();
 };
@@ -18,34 +18,8 @@ var handlers = {
 
 
   //Reads the list of ice cream flavors
-  'ReadFlavor': function () {
-
-  	https.get(url, (response) => {
-            console.info("Response is, Response Status Code: " + response.statusCode + ", Response Message: " + response.statusMessage);
-            let rawData = "";
-            response.on('data', (chunk) => rawData += chunk);
-            response.on('end', () => {
-                try {
-                    let parsedData = JSON.parse(rawData);
-                    if (parsedData.error) {
-                        throw new Error(JSON.stringify(parsedData.error));
-                    }
-                    else {
-                    	cardTitle = 'Ron Quote';
-                    	cardContent = parsedData[0];
-                    	this.emit(':tellWithCard', parsedData[0], cardTitle, cardContent);
-                        return;
-                    }
-                }
-                catch (e) {
-                    console.error(e);
-                    return;
-                }
-            });
-        }).on('error', (e) => {
-            console.error(e);
-            return;
-        });
+  'ReadFlavors': function () {
+    this.emit(':tell', 'Our ice cream flavors are ' + flavors.join(", "));
   },
 
   'AMAZON.StopIntent': function () {
@@ -63,12 +37,13 @@ var handlers = {
   this.emit(':saveState', true);
   },
 
+  // Provide help function
   'AMAZON.HelpIntent' : function () {
-  this.emit(':ask', 'You can say read to hear a Ron Swanson quote, or say stop to end the session. What would you like to do?',  `What would you like to do?`);
+  this.emit(':ask', 'You can say tell me flavors to hear ice cream flavors. What would you like to do?',  `What would you like to do?`);
   },
 
   'Unhandled' : function () {
-  this.emit(':ask', `You can say read to hear a Ron Swanson quote, or say stop to end the session. What would you like to do?`,  `What would you like to do?`);
+  this.emit(':ask', `You can say tell me flavors to hear ice cream flavors. What would you like to do?`,  `What would you like to do?`);
   }
 
 };

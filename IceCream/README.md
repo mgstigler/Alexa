@@ -1,6 +1,8 @@
 Getting Started with Alexa
 ==========================
 
+![alexa design](https://github.com/mgstigler/Alexa/blob/master/IceCream/images/alexa.png?raw=true)
+
 Not long ago, smart assistants were thought of as fun, gimicky devices used to tell jokes and check the weather.  Since the increasing availability of developer kits and tools, these devices have grown in their capabilities and are supporting many more useful and powerful applications from banking support to smart home communication to integrated applications with mobile.  Alexa is one of the most popular smart assistants and offers over 25,000 skills to help make tasks simpler and engaging for users.  With this rise in natural language processing, it becomes increasingly more necessary for developers to know how to create and publish Alexa skills.  
 
 In this tutorial, we are going to cover the basics of getting started with Alexa development and will create a simple skill that will recite available ice cream flavors for an ice cream truck.
@@ -14,11 +16,11 @@ An *intent* represents an action that fulfills a user's spoken request. Intents 
 
 __Utterances__
 
-*Utterances* area a set of likely spoken phrases mapped to the intents. This should include as many representative phrases as possible. (ex: "tell me my ice cream options")
+*Utterances* are a set of likely spoken phrases mapped to the intents. This should include as many representative phrases as possible. (ex: "tell me my ice cream options")
 
 __Custom slot types__
 
-*Custome slot types* are a representative list of possible values for a slot. Custom slot types are used for lists of items that are not covered by one of Amazon's built-in slot types. Some built-in slot types include date, location, name...
+*Custom slot types* are a representative list of possible values for a slot. Custom slot types are used for lists of items that are not covered by one of Amazon's built-in slot types. Some built-in slot types include date, location, name...
 
 **For more information, visit [Amazon's guide](https://developer.amazon.com/docs/custom-skills/use-the-skill-builder-beta-to-define-intents-slots-and-dialogs.html).**
 
@@ -66,13 +68,66 @@ Next, we will configure the Intents.  I created one called "ReadFlavors" with sa
 
 When you have configured your intents with utterances, click "Save model" and make sure there are no errors.  If all goes well, build your model by clicking "Build Model".
 
-In the left sidebar under "Endpoints", 
+In the left sidebar under "Endpoints", paste the ARN you copied from AWS previously next to "Default Region" and click "Save Endpoints".
 
 
+Write and Upload the Code
+-------------------------
 
-Integrate with DynamoDB
------------------------
+```javascript
+var Alexa = require('alexa-sdk');
 
+var flavors = ["strawberry", "chocolate", "vanilla", "mint chocolate chip"];
+
+exports.handler = function(event, context, callback){
+  var alexa = Alexa.handler(event, context);
+  alexa.appId = 'amzn1.ask.skill.41b68f8c-dc8c-48cd-b794-3ee33271749e';
+  alexa.registerHandlers(handlers);
+  alexa.execute();
+};
+
+var handlers = {
+
+  //Handles the launch request
+  'LaunchRequest': function () {
+    this.emit(':ask', 'Welcome to the ice cream truck! Ask to hear the flavors', 'Try asking what the flavors are.');
+  },
+
+
+  //Reads the list of ice cream flavors
+  'ReadFlavors': function () {
+    this.emit(':tell', 'Our ice cream flavors are ' + flavors.join(", "));
+  },
+
+  'AMAZON.StopIntent': function () {
+  // State Automatically Saved with :tell
+  this.emit(':tell', `Goodbye.`);
+  },
+
+  'AMAZON.CancelIntent': function () {
+  // State Automatically Saved with :tell
+  this.emit(':tell', `Goodbye.`);
+  },
+
+  'SessionEndedRequest': function () {
+  // Force State Save When User Times Out
+  this.emit(':saveState', true);
+  },
+
+  // Provide help function
+  'AMAZON.HelpIntent' : function () {
+  this.emit(':ask', 'You can say tell me flavors to hear ice cream flavors. What would you like to do?',  `What would you like to do?`);
+  },
+
+  'Unhandled' : function () {
+  this.emit(':ask', `You can say tell me flavors to hear ice cream flavors. What would you like to do?`,  `What would you like to do?`);
+  }
+
+};
+
+```
+
+![finished model](https://github.com/mgstigler/Alexa/blob/master/IceCream/images/done.png?raw=true)
 
 
 Publishing Process

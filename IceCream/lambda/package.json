@@ -1,11 +1,10 @@
 {
-  "name": "RonSwansonQuote",
+  "name": "IceCreamTruck",
   "version": "1.0.0",
-  "description": "Hear the Ron Swanson quote of the day",
+  "description": "Skill for ice cream truck app",
   "main": "index.js",
   "dependencies": {
-    "alexa-sdk": "^1.0.8",
-    "image-downloader": "^3.2.1"
+    "alexa-sdk": "^1.0.8"
   },
   "devDependencies": {
     "alexa-sdk": "^1.0.6"
