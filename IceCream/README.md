@@ -1,4 +1,4 @@
-Getting Started with Alexa
+Alexa Tutorial - Getting Started with Alexa
 ==========================
 
 ![alexa design](https://github.com/mgstigler/Alexa/blob/master/IceCream/images/alexa.png?raw=true)
@@ -126,16 +126,45 @@ var handlers = {
 };
 
 ```
+Since we are using the Alexa SDK, we will need to make sure the node modules are included in our projects .zip file.  When you compress your project to upload it, include the node modules folder.  
+
+After you have uploaded the project to your lambda project and have ensured that it can access the index file, we can test our skill in the Alexa developer portal and invoke it within the "Test" section of your skill builder.  This is shown below:
+
 
 ![finished model](https://github.com/mgstigler/Alexa/blob/master/IceCream/images/done.png?raw=true)
 
 
+> __Note: If your Alexa device is connected to your developer account, you will actually be able to invoke your skill directly from your device.__
+
+
+Congrats, you have finished your first skill!  Next, we will cover the publishing process for when you create your own unique skill.
+
 Publishing Process
 ------------------
 
+When your skill is ready for publication, you can submit it to Amazon for review. The Submit for Certification button becomes available once all required fields are completed.  These fields follow the testing portion of your Alexa development.
+
+1. Log on to the Developer Portal.
+Navigate to the Alexa section by clicking Apps & Services and then clicking Alexa in the top navigation. This displays a list of your existing Alexa skills.
+Find the skill to submit in the list and choose Edit.
+
+> __Note that there should be a green check mark next to each section. If any sections are missing the check mark, this means that at least one required field is not filled in. Review the section and complete all required fields.__
+
+2. Click the Submit for Certification button. When prompted to confirm, click Yes.
 
 
-Next in Series
---------------
+3. After Amazon completes the review, you will receive an email at the address associated with your developer portal account:
+
+*If the skill has been certified, the email will provide an estimate for when it will become available to end users.
+If the skill could not be certified, the email provides information about the issues you need to correct. You can make any necessary changes and then re-submit.*
+
+
+Conclusion
+----------
+
+After reading and working through this tutorial, you should have a basic understanding of how to create and publish an Alexa skill.  The source code for this can be located [here.](https://github.com/mgstigler/Alexa/tree/master/IceCream)
+
+Next in Alexa Blog Series
+-------------------------
 
 In the next blog post in this Alexa series, Nick Cipollina will walk us through accessing location with Alexa.

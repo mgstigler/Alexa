@@ -1,0 +1,208 @@
+{
+  "service": {
+    "service": "FamilyFun",
+    "serviceObject": {
+      "name": "FamilyFun"
+    },
+    "provider": {
+      "stage": "dev",
+      "region": "us-east-1",
+      "variableSyntax": "\\${([ :a-zA-Z0-9._,\\-\\/\\(\\)]+?)}",
+      "name": "aws",
+      "runtime": "nodejs6.10",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          },
+          "FamilyFunLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/FamilyFun-dev-familyFun"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "dev",
+                        "FamilyFun",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/FamilyFun-dev-familyFun:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/FamilyFun-dev-familyFun:*:*"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "FamilyFun",
+                    "dev",
+                    "us-east-1",
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "FamilyFunLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/FamilyFun/dev/1503619782457-2017-08-25T00:09:42.457Z/familyFun.zip"
+              },
+              "FunctionName": "FamilyFun-dev-familyFun",
+              "Handler": "lambda/handler.FamilyFun",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs6.10",
+              "Timeout": 6
+            },
+            "DependsOn": [
+              "FamilyFunLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "FamilyFunLambdaVersion560ZumG4qXxKYhN24rFA8usaAD8SkSO6jQaZRXDnRE": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FamilyFunLambdaFunction"
+              },
+              "CodeSha256": "560ZumG4qXxKYhN24rFA8us+aAD8SkSO6jQaZRXDnRE="
+            }
+          },
+          "FamilyFunLambdaPermissionAlexaSkill": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "FamilyFunLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "alexa-appkit.amazon.com"
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          },
+          "FamilyFunLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "FamilyFunLambdaVersion560ZumG4qXxKYhN24rFA8usaAD8SkSO6jQaZRXDnRE"
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "functions": {
+      "familyFun": {
+        "handler": "lambda/handler.FamilyFun",
+        "events": [
+          "alexaSkill"
+        ],
+        "package": {
+          "include": [
+            "lambda/handler.js",
+            "lambda/Services/games.js",
+            "lambda/Models/gameModel.js",
+            "node_modules/**"
+          ]
+        },
+        "name": "FamilyFun-dev-familyFun",
+        "artifact": "/Users/mstigler/Desktop/AlexaSkills/FamilyFun/FamilyFun/.serverless/familyFun.zip",
+        "vpc": {}
+      }
+    }
+  },
+  "package": {
+    "individually": true,
+    "artifactDirectoryName": "serverless/FamilyFun/dev/1503619782457-2017-08-25T00:09:42.457Z",
+    "artifact": ""
+  }
+}
